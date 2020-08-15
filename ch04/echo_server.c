@@ -38,7 +38,10 @@ int main(int argc, char *argv[])
     if (listen(serv_sock, 5) == -1)
         error_handling("listen() error");
 
+    printf("[server started]\n");
+
     clnt_adr_sz = sizeof(clnt_adr);
+
     //调用 5 次 accept 函数，共为 5 个客户端提供服务
     for (i = 0; i < 5; i++)
     {
@@ -51,6 +54,7 @@ int main(int argc, char *argv[])
         while ((str_len = read(clnt_sock, message, BUF_SIZE)) != 0)
             write(clnt_sock, message, str_len);
 
+        printf("Client %d Closed\n", i + 1);
         close(clnt_sock);
     }
     close(serv_sock);
