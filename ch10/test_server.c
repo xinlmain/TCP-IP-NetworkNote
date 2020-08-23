@@ -3,6 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <signal.h>
+#include <fcntl.h>
 #include <sys/wait.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
@@ -13,6 +14,8 @@ void read_childproc(int sig);
 
 int main(int argc, char *argv[])
 {
+    int fd = open("data.txt", O_CREAT | O_WRONLY | O_TRUNC);
+
     int serv_sock, clnt_sock;
     struct sockaddr_in serv_adr, clnt_adr;
 
@@ -31,6 +34,9 @@ int main(int argc, char *argv[])
     act.sa_flags = 0;
     state = sigaction(SIGCHLD, &act, 0);         //注册信号处理器,把成功的返回值给 state
     serv_sock = socket(PF_INET, SOCK_STREAM, 0); //创建服务端套接字
+
+    close(fd);
+
 
     memset(&serv_adr, 0, sizeof(serv_adr));
     serv_adr.sin_family = AF_INET;

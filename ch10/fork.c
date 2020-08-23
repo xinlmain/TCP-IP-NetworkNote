@@ -1,23 +1,22 @@
 #include <stdio.h>
 #include <unistd.h>
 
-int gval = 10;
+int global = 10;
 int main(int argc, char *argv[])
 {
-    pid_t pid;
-    int lval = 20;
-    gval++, lval += 5;
+    int local = 20;
 
-    pid = fork();
+    pid_t pid = fork();
+    
     if (pid == 0)
-        gval += 2, lval += 2;
+        global += 2, local += 2;
     else
-        gval -= 2, lval -= 2;
+        global -= 2, local -= 2;
 
     if (pid == 0)
-        printf("Child Proc: [%d,%d] \n", gval, lval);
+        printf("Child Proc: [%d,%d] \n", global, local);
     else
-        printf("Parent Proc: [%d,%d] \n", gval, lval);
+        printf("Parent Proc: [%d,%d] \n", global, local);
 
     return 0;
 }
