@@ -21,6 +21,7 @@ int main(int argc, char *argv[])
         printf("Usage : %s <IP> <port>\n", argv[0]);
         exit(1);
     }
+    
     //创建 UDP 套接字
     sock = socket(PF_INET, SOCK_DGRAM, 0);
     if (sock == -1)

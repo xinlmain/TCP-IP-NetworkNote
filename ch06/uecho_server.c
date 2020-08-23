@@ -21,6 +21,7 @@ int main(int argc, char *argv[])
         printf("Usage : %s <port>\n", argv[0]);
         exit(1);
     }
+    
     //创建 UDP 套接字后，向 socket 的第二个参数传递 SOCK_DGRAM
     serv_sock = socket(PF_INET, SOCK_DGRAM, 0);
     if (serv_sock == -1)
